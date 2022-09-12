@@ -8,6 +8,7 @@ import { useConfig, useMenu } from '../contexts'
 import { MenuIcon } from 'nextra/icons'
 import { Item, PageItem, MenuItem, renderComponent, getFSRoute } from '../utils'
 import { Anchor } from './anchor'
+import { VersionSwitch } from './version-switch'
 import { DEFAULT_LOCALE } from '../constants'
 
 export type NavBarProps = {
@@ -83,6 +84,21 @@ export function Navbar({ flatDirectories, items }: NavBarProps): ReactElement {
   const activeRoute = getFSRoute(asPath, locale)
   const { menu, setMenu } = useMenu()
 
+  const { versioned, filteredItems } = items.reduce<{
+    versioned: PageItem[]
+    filteredItems: (PageItem | MenuItem)[]
+  }>(
+    (acc, curr) => {
+      if ('versioned' in curr && curr.versioned) {
+        acc.versioned.push(curr)
+      } else {
+        acc.filteredItems.push(curr)
+      }
+      return acc
+    },
+    { versioned: [], filteredItems: [] }
+  )
+
   return (
     <div className="nextra-nav-container sticky top-0 z-20 w-full bg-transparent">
       <div
@@ -93,15 +109,16 @@ export function Navbar({ flatDirectories, items }: NavBarProps): ReactElement {
           'contrast-more:shadow-[0_0_0_1px_#000] contrast-more:dark:shadow-[0_0_0_1px_#fff]'
         )}
       />
-      <nav className="mx-auto flex h-[var(--nextra-navbar-height)] max-w-[90rem] items-center justify-end gap-2 pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]">
-        <Anchor
-          href="/"
-          className="flex ltr:mr-auto rtl:ml-auto items-center hover:opacity-75"
-        >
-          {renderComponent(config.logo)}
-        </Anchor>
+      <nav className="mx-auto flex h-[var(--nextra-navbar-height)] max-w-[90rem] items-center gap-2 pl-[max(env(safe-area-inset-left),1.5rem)] pr-[max(env(safe-area-inset-right),1.5rem)]">
+        <div className="grow flex gap-2 items-center">
+          <Anchor href="/" className="flex items-center hover:opacity-75">
+            {renderComponent(config.logo)}
+          </Anchor>
 
-        {items.map(pageOrMenu => {
+          {versioned.length > 0 && <VersionSwitch options={versioned} />}
+        </div>
+
+        {filteredItems.map(pageOrMenu => {
           if (pageOrMenu.hidden) return null
 
           if (pageOrMenu.type === 'menu') {
@@ -123,8 +140,8 @@ export function Navbar({ flatDirectories, items }: NavBarProps): ReactElement {
               >
                 {menu.title}
                 <ArrowRightIcon
-                  className="h-[18px] min-w-[18px] rounded-sm p-0.5"
-                  pathClassName="origin-center transition-transform rotate-90"
+                  className="h-3.5 w-3.5 rounded-sm"
+                  pathClassName="[[aria-expanded='true']>svg>&]:rotate-[270deg] origin-center transition-transform rotate-90"
                 />
               </NavbarMenu>
             )

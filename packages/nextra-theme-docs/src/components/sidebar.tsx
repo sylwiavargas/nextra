@@ -396,7 +396,7 @@ export function Sidebar({
             className={cn(
               'z-[1] relative', // for top box shadow
               'mx-4 py-4 border-t shadow-[0_-12px_16px_#fff]',
-              'flex gap-2 items-center gap-2',
+              'flex gap-2 items-center',
               'dark:border-neutral-800 dark:shadow-[0_-12px_16px_#111]',
               'contrast-more:shadow-none contrast-more:dark:shadow-none contrast-more:border-neutral-400'
             )}

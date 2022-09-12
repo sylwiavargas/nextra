@@ -31,6 +31,7 @@ export interface PageItem extends MdxFile {
   firstChildRoute?: string
   hidden?: boolean
   withIndexPage?: boolean
+  versioned?: true
 }
 
 export interface MenuItem extends MdxFile {
