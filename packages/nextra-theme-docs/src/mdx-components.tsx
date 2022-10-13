@@ -179,7 +179,7 @@ const Details = ({
 
   return (
     <details
-      className="my-4 rounded border border-gray-200 bg-white p-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-900 first:mt-0 last:mb-0"
+      className="my-4 rounded border border-gray-200 bg-white p-2 shadow-sm dark:border-neutral-800 dark:bg-neutral-900"
       {...props}
       open={delayedOpenState}
       {...(openState && { 'data-expanded': true })}
@@ -234,7 +234,7 @@ export const getComponents = ({
     h5: createHeaderLink('h5', context),
     h6: createHeaderLink('h6', context),
     ul: (props: ComponentProps<'ul'>) => (
-      <ul className="ltr:ml-6 rtl:mr-6 mt-6 list-disc first:mt-0" {...props} />
+      <ul className="ltr:ml-6 rtl:mr-6 mt-6 list-disc" {...props} />
     ),
     ol: (props: ComponentProps<'ol'>) => (
       <ol className="ltr:ml-6 rtl:mr-6 mt-6 list-decimal" {...props} />
@@ -243,7 +243,7 @@ export const getComponents = ({
     blockquote: (props: ComponentProps<'blockquote'>) => (
       <blockquote
         className={cn(
-          'mt-6 first:mt-0 border-gray-300 italic text-gray-700 dark:border-gray-700 dark:text-gray-400',
+          'mt-6 border-gray-300 italic text-gray-700 dark:border-gray-700 dark:text-gray-400',
           'rtl:border-r-2 rtl:pr-6 ltr:border-l-2 ltr:pl-6'
         )}
         {...props}
@@ -259,10 +259,10 @@ export const getComponents = ({
       />
     ),
     table: (props: ComponentProps<'table'>) => (
-      <Table className="nextra-scrollbar mt-6 first:mt-0 p-0" {...props} />
+      <Table className="nextra-scrollbar mt-6 p-0" {...props} />
     ),
     p: (props: ComponentProps<'p'>) => (
-      <p className="mt-6 first:mt-0 leading-7" {...props} />
+      <p className="mt-6 leading-7" {...props} />
     ),
     tr: Tr,
     th: Th,
