@@ -1,10 +1,9 @@
 import type { PageMapItem, PageOpts } from 'nextra'
 import type { ReactElement, ReactNode } from 'react'
 
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import 'focus-visible'
-import scrollIntoView from 'scroll-into-view-if-needed'
 import { SkipNavContent } from '@reach/skip-nav'
 import cn from 'clsx'
 import { MDXProvider } from '@mdx-js/react'
@@ -20,21 +19,9 @@ import {
 } from './components'
 import { getComponents } from './mdx-components'
 import { ActiveAnchorProvider, ConfigProvider, useConfig } from './contexts'
-import { DEFAULT_LOCALE, IS_BROWSER } from './constants'
+import { DEFAULT_LOCALE } from './constants'
 import { getFSRoute, normalizePages, renderComponent } from './utils'
 import { DocsThemeConfig, PageTheme, RecursivePartial } from './types'
-
-let resizeObserver: ResizeObserver
-if (IS_BROWSER) {
-  resizeObserver ||= new ResizeObserver(entries => {
-    if (location.hash) {
-      const node = entries[0].target.ownerDocument.getElementById(location.hash.slice(1))
-      if (node) {
-        scrollIntoView(node)
-      }
-    }
-  })
-}
 
 function useDirectoryInfo(pageMap: PageMapItem[]) {
   const { locale = DEFAULT_LOCALE, defaultLocale, route } = useRouter()
@@ -66,18 +53,7 @@ const Body = ({
   navigation,
   children
 }: BodyProps): ReactElement => {
-  const mainElement = useRef<HTMLElement>(null)
   const config = useConfig()
-
-  useEffect(() => {
-    if (mainElement.current) {
-      resizeObserver.observe(mainElement.current)
-    }
-
-    return () => {
-      resizeObserver.disconnect()
-    }
-  }, [])
 
   if (themeContext.layout === 'raw') {
     return <div className="w-full overflow-x-hidden">{children}</div>
@@ -121,10 +97,7 @@ const Body = ({
           'nextra-body-typesetting-article'
       )}
     >
-      <main
-        className="w-full min-w-0 max-w-4xl px-6 pt-4 md:px-8"
-        ref={mainElement}
-      >
+      <main className="w-full min-w-0 max-w-4xl px-6 pt-4 md:px-8">
         {breadcrumb}
         {body}
       </main>

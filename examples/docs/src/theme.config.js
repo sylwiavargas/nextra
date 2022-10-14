@@ -7,11 +7,14 @@ export default {
     key: 'Nextra 2',
     text: 'Nextra 2 Alpha',
   },
+  chat: {
+    link: 'https://discord.gg/hEM84NMkRv', // Next.js discord server,
+  },
   docsRepositoryBase: 'https://github.com/shuding/nextra/blob/core/examples/docs',
   editLink: {
     text: 'Edit this page on GitHub'
   },
-  head: () => (
+  head: (
     <>
       <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
@@ -58,8 +61,5 @@ export default {
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
     </>
   ),
-  projectChat: {
-    link: 'https://discord.gg/hEM84NMkRv', // Next.js discord server,
-  },
   unstable_faviconGlyph: '✦',
 }
