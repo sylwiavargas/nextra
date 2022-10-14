@@ -50,9 +50,7 @@ export interface DocsThemeConfig {
   head: ReactNode | FC
   i18n: { direction?: string; locale: string; text: string }[]
   logo: ReactNode | FC
-  main: {
-    extraContent: ReactNode | FC
-  }
+  main?: FC<{ children: ReactNode }>
   navbar: ReactNode | FC<NavBarProps>
   navigation:
     | boolean
@@ -65,7 +63,7 @@ export interface DocsThemeConfig {
     'defaultTheme' | 'storageKey' | 'forcedTheme'
   >
   notFound: {
-    content: ReactNode | FC,
+    content: ReactNode | FC
     labels: string
   }
   primaryHue:
@@ -90,7 +88,7 @@ export interface DocsThemeConfig {
     placeholder: string | (() => string)
   }
   serverSideError: {
-    content: ReactNode | FC,
+    content: ReactNode | FC
     labels: string
   }
   sidebar: {

@@ -87,9 +87,6 @@ export const DEFAULT_THEME: DocsThemeConfig = {
       </span>
     </>
   ),
-  main: {
-    extraContent: null
-  },
   navbar: Navbar,
   navigation: {
     next: true,
@@ -169,7 +166,7 @@ export const DEEP_OBJECT_KEYS = Object.entries(DEFAULT_THEME)
 
 export const LEGACY_CONFIG_OPTIONS: Record<string, string> = {
   bannerKey: 'banner.key',
-  bodyExtraContent: 'main.extraContent',
+  bodyExtraContent: 'main',
   customSearch: 'search.component',
   defaultMenuCollapsed: 'sidebar.defaultMenuCollapsed',
   feedbackLabels: 'feedback.labels',
